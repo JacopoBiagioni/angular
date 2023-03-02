@@ -9,26 +9,38 @@ import { Observable } from 'rxjs';
   styleUrls: ['./track.component.css']
 })
 export class TrackComponent implements OnInit {
-  routeObs!: Observable<ParamMap>;
+  //Osserva gli eventi sulla route tracks, restituisce la ParamMap che contiene tutti i   
+  //parametri passati all’url
+  routeObs: Observable<ParamMap> = undefined!; 
 
-  track: any;
-
+  track : any; //Qui salverò la traccia selezionata
+  spotifyServiceObs: Observable<Object> = undefined!;
+  
+  //Usiamo la dependency injection per farci mandare i moduli del routing e dello    
+  //SpotifyService
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private service: SpotifyService) { }
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private service: SpotifyService ) { }
+
 
   ngOnInit(): void {
+    //Ottengo l'observable che notifica le informazioni sulla route attiva
     this.routeObs = this.route.paramMap;
     this.routeObs.subscribe(this.getRouterParam);
   }
 
-  getRouterParam = (params : ParamMap) =>
+  //Ogni volta che viene invocata la route tracks/:id, l'observable richiama questo metodo
+  getRouterParam = (params: ParamMap) =>
   {
-    let trackId = params.get('id');
-    console.log (trackId);
-
+    let trackId = params.get('id'); //Ottengo l'id dai parametri
+    console.log (trackId); //Stampo su console
+    //spotifyServiceObs va dichiarato
+    this.spotifyServiceObs.subscribe((data)=>this.track = data)
   }
-  back() {}
-  
+
+  back()
+  {//DA FINIRE }
+     
+}
 }
