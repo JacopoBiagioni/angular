@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpotifyService {
-
   constructor(private http: HttpClient) { }
-
+  
   searchTrack(query: string) {
     const url = `https://api.spotify.com/v1/search?q=${query}&type=track`;
     const headers = new HttpHeaders({
       Authorization:
-        'Bearer BQAxiFHg3upPnafM5mzMBdJRvpv8dSuhYkONMjTrhX8qfRV6f9Ass1Jp4CrvfZZhDq7TCGL6sY3avL96w4UI0PXtElxz7iYCgS6yQW-AYOcqRQEXUBmPXmnoQakM3PEEZTBNU78YPkC1y2LIJqg4bE6BIyq5aW_jtBTNDBD51A8MDFcph2sXUTUJ8Swxlz3D9Q7H'
-    });
+        environment.oauthToken});
 
     let obsTracks = this.http.get(url, { headers });
     return obsTracks;
@@ -24,8 +23,24 @@ export class SpotifyService {
     const url = `https://api.spotify.com/v1/tracks/${id}`;
     const headers = new HttpHeaders({
       Authorization:
-        'Bearer BQAxiFHg3upPnafM5mzMBdJRvpv8dSuhYkONMjTrhX8qfRV6f9Ass1Jp4CrvfZZhDq7TCGL6sY3avL96w4UI0PXtElxz7iYCgS6yQW-AYOcqRQEXUBmPXmnoQakM3PEEZTBNU78YPkC1y2LIJqg4bE6BIyq5aW_jtBTNDBD51A8MDFcph2sXUTUJ8Swxlz3D9Q7H'
-    });
+        environment.oauthToken});
+    
+    return this.http.get(url, { headers });
+  }
+  getArtist(id: string) {
+    const url = `https://api.spotify.com/v1/artists/${id}`;
+    const headers = new HttpHeaders({
+      Authorization:
+        environment.oauthToken});
+    
+    return this.http.get(url, { headers });
+  }
+
+  getAlbum(id: string) {
+    const url = `https://api.spotify.com/v1/albums/${id}`;
+    const headers = new HttpHeaders({
+      Authorization:
+        environment.oauthToken});
     
     return this.http.get(url, { headers });
   }
