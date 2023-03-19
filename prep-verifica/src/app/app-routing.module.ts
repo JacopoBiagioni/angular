@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { CaratteristicheComponent } from './caratteristiche/caratteristiche.component';
+import { Routes, RouterModule } from '@angular/router';
 import { SearchComponent } from './search/search.component';
+import { ItemComponent } from './item/item.component';
 
 const routes: Routes = [
-  { path: 'search', component : SearchComponent },
-  { path: 'caratteristiche/:id', component : CaratteristicheComponent },
-  
+  { path: '', redirectTo: '/search', pathMatch: 'full' },
+  { path: 'search', component: SearchComponent },
+  { path: 'item/:id', component: ItemComponent },
 ];
 
 @NgModule({
@@ -14,3 +14,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

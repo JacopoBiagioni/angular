@@ -1,6 +1,12 @@
-<h1>Search</h1>
-
-<p>
-  <input type="text" #newquery>
-  <button (click)="submit(newquery)">Search</button>
-</p>
+<div>
+    <input type="text" [(ngModel)]="searchQuery">
+    <button (click)="search()">Search</button>
+  </div>
+  <div *ngIf="searchResult">
+    <ul>
+      <li *ngFor="let item of searchResult">
+        <a [routerLink]="['/item', item.id]">{{item.name}}</a>
+      </li>
+    </ul>
+  </div>
+  

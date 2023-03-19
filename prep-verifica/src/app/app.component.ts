@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'prep-verifica';
+
+  constuctor() {}
+
+
+  submit(query:HTMLInputElement): void {}
+
 }
