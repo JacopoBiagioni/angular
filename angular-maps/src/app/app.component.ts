@@ -14,6 +14,7 @@ export class AppComponent {
   circleOptions: any;
   markerOptions: google.maps.MarkerOptions;
   vertices: google.maps.LatLngLiteral[];
+  vertices2: google.maps.LatLngLiteral[];
 
   constructor()
   {
@@ -31,6 +32,11 @@ export class AppComponent {
       {  lat: this.center.lat, lng: this.center.lng },
       {  lat: this.center.lat - 0.001, lng: this.center.lng - 0.002}
  ];
+ this.vertices2 = [
+  {  lat: this.center.lat - 0.001, lng: this.center.lng + 0.002 },
+  {  lat: this.center.lat, lng: this.center.lng },
+  {  lat: this.center.lat + 0.001, lng: this.center.lng + 0.002}
+];
   }
   
 }

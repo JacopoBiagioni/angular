@@ -4,13 +4,21 @@
   <!--Mettiamo un marker alle nostre coordinate-->
   <map-marker [position]="position" [label]="label" [title]="title" [options] = "markerOptions">
   </map-marker>
+  <map-marker [position]="position" [label]="label" [title]="title" [options] = "markerOptions">
+  </map-marker>
   
 <map-circle [center]="position"
             [radius]="50"
             [options] = 'circleOptions'>
 </map-circle>
+<map-circle [center]="position"
+            [radius]="25"
+            [options] = 'circleOptions'>
+</map-circle>
 
 <map-polygon [paths]="vertices">
+</map-polygon>
+<map-polygon [paths]="vertices2">
 </map-polygon>
 
 </google-map>
