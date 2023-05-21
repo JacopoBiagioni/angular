@@ -18,12 +18,22 @@ export class AppComponent implements AfterViewInit {
   markerList! : google.maps.MarkerOptions[];
   zoom = 8;
   
-  @ViewChild('mapRef') 
-  mapRef!: GoogleMap;
+  
+
+  constructor() {
+
+    //Questi dati dovremmo scaricarli dal server, per ora li abbiamo copiati nel file     gojson.model.ts
+    this.geoJsonObject = GEOJSON;  
+    console.log(this.geoJsonObject); //stampo l'oggetto geoJsonObject sulla console
+    this.markerGenerator()
+  }
+
+  @ViewChild('mapRef') mapRef!: GoogleMap;
   ngAfterViewInit() {
     this.mapRef.data.addGeoJson(this.geoJsonObject);
     this.mapRef.data.setStyle(this.styleFunc);
   }
+
   styleFunc = (feature:any) =>{
     console.log(feature.h.id)
     let newColor = "#FF0000"; //RED
@@ -36,12 +46,6 @@ export class AppComponent implements AfterViewInit {
     });
   }
 
-  constructor() {
-
-    //Questi dati dovremmo scaricarli dal server, per ora li abbiamo copiati nel file     gojson.model.ts
-    this.geoJsonObject = GEOJSON;  
-    console.log(this.geoJsonObject); //stampo l'oggetto geoJsonObject sulla console
-  }
   markerGenerator()
   {
     this.markerList =[
