@@ -18,11 +18,17 @@ export class AppComponent {
   {
     this.obs = this.http.get<Typelist>("https://pokeapi.co/api/v2/type");
     this.obs.subscribe(this.doSomething)
-
   }
 
   doSomething = (data : Typelist) => {
     this.PokemonList = data
   }
 
+  getLastPart (url : string ) {
+    var parts = url.split("/");
+    console.log(parts)
+    var lastSegment = parts.pop;
+    return lastSegment
+    
+  }
 }
