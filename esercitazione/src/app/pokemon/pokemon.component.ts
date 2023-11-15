@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
+import { PokemonsService } from '../pokemons.service';
 
 @Component({
   selector: 'app-pokemon',
@@ -16,7 +17,7 @@ export class PokemonComponent implements OnInit{
 
   constructor(
     private route: ActivatedRoute,
-    private service: PokemonService
+    private service: PokemonsService
   ) { }
 
 
@@ -31,8 +32,8 @@ export class PokemonComponent implements OnInit{
     console.log(pokemonid)
     if (pokemonid != null)
     {
-      this.pokemonServiceObs = this.service.getTrack(pokemonId) ;
-    this.pokemonServiceObs.subscribe((data: any)=>this.pokemon = data)
+      this.pokemonServiceObs = this.service.getPokemon(pokemonid) ;
+      this.pokemonServiceObs.subscribe((data: any)=>this.pokemon = data)
     }
   }
   
