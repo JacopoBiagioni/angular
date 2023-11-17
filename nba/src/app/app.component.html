@@ -1,1 +1,8 @@
-{{PlayersList | json}}
+<div *ngFor = "let player of PlayersList">
+    <a routerLink="/giocatore/{{getLastPart(player.url)}}">
+        {{player.name}}
+    </a>
+    <hr>
+</div>
+
+<router-outlet></router-outlet>

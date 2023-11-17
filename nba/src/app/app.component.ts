@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { PlayerList } from './PlayersList.model';
+import { PlayersList } from './PlayersList.model';
 
 @Component({
   selector: 'app-root',
@@ -15,22 +15,26 @@ import { PlayerList } from './PlayersList.model';
 export class AppComponent {
   title = 'nba';
 
-  PlayersList! : PlayerList
-  obs! : Observable<PlayerList>
+  PlayersList! : PlayersList
+  obs! : Observable<PlayersList>
 
 
 
   constructor (private http : HttpClient) 
   {
-    this.obs = this.http.get<PlayerList>("https://www.balldontlie.io/api/v1/players");
+    this.obs = this.http.get<PlayersList>("https://www.balldontlie.io/api/v1/players");
     this.obs.subscribe(this.doSomething)
 
   }
 
-  doSomething = (data : PlayerList) => {
+  doSomething = (data : PlayersList) => {
     this.PlayersList = data
   }
 
-
-
+  getLastPart (url : string ) {
+    var parts = url.split("/");
+    console.log(parts)
+    var lastSegment = parts.pop;
+    return lastSegment
+  }
 }

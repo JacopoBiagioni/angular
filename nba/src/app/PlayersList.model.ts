@@ -1,4 +1,4 @@
-export interface PlayerList {
+export interface PlayersList {
     data: Player[]
 }
 
