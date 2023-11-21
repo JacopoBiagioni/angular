@@ -1,40 +1,54 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PokemonsService } from '../pokemons.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-pokemon',
   templateUrl: './pokemon.component.html',
   styleUrls: ['./pokemon.component.css']
 })
-export class PokemonComponent implements OnInit{
+export class PokemonComponent {
 
-  routeObs: Observable<ParamMap> = undefined!;
+  routeObs!: Observable<ParamMap>;
   pokemon : any;
-  pokemonServiceObs: any;
+  pokemonObs: any;
+  pokemonList: any;
 
 
   constructor(
     private route: ActivatedRoute,
-    private service: PokemonsService
+    private http: HttpClient
   ) { }
 
 
   ngOnInit(): void {
+    //Ottengo l'observable che notifica le informazioni sulla route attiva
     this.routeObs = this.route.paramMap;
     this.routeObs.subscribe(this.getRouterParam);
   }
 
   getRouterParam = (params: ParamMap) =>
   {
-    let pokemonid = params.get('id');
-    console.log(pokemonid)
-    if (pokemonid != null)
+    let pokemon = params.get('path'); //Ottengo l'id dalla ParamMap
+    console.log(pokemon)
+    if (pokemon != null)
     {
-      this.pokemonServiceObs = this.service.getPokemon(pokemonid) ;
-      this.pokemonServiceObs.subscribe((data: any)=>this.pokemon = data)
+      this.pokemonObs = this.http.get<any>('https://pokeapi.co/api/v2/type/${pokemon}') ;
+      this.pokemonObs.subscribe(this.doSomething)
     }
+  }
+
+  doSomething = (data : any) => {
+    this.pokemonList = data;
+    console.log(this.pokemonList)
+  }
+
+  getLastPart (data : string){
+    let url = data.split("/").slice(-2)
+    console.log(url[0])
+    return url[0]
   }
   
 
